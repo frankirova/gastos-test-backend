@@ -11,6 +11,7 @@ app.use(express.json());
 const origins = [
     "http://localhost:5173",
     "https://gastos-app-client.vercel.app",
+    "https://gastos-test-iota.vercel.app",
     "https://gastos-app-server.onrender.com",
 ];
 app.use(
