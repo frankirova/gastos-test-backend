@@ -68,7 +68,12 @@ app.get("/rate/:base_currency", async (req, res) => {
 app.get("/categories", async (req, res) => {
     try {
         const categories = await categories.get();
-        res.json(categories);
+
+        if (categories) {
+            res.json(categories);
+        } else {
+            res.status(404).send("cuenta no encontrado");
+        }
     } catch (error) {
         console.error("Error al obtener categorias:", error);
         res.status(500).send({ message: "Eror al obtener las categorias" });
@@ -77,7 +82,7 @@ app.get("/categories", async (req, res) => {
 app.post("category", async (req, res) => {
     try {
         const category = req.body;
-        category.add(category);
+        await category.add(category);
         res.status(200).send({ message: "Ok" });
     } catch (error) {
         console.error("Error al agregar categoria:" + error);
