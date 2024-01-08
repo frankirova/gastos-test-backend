@@ -55,11 +55,43 @@ app.get("/rate/:base_currency", async (req, res) => {
         if (rate) {
             res.json(rate);
         } else {
-            res.status(404).send("rate no encontrado");
+            res.status(404).send({ message: "rate no encontrado" });
         }
     } catch (error) {
         console.error("Error al obtener la rate:", error);
-        res.status(500).send("Error al obtener la rate");
+        res.status(500).send({ message: "Error al obtener la rate" });
+    }
+});
+
+//categories
+
+app.get("/categories", async (req, res) => {
+    try {
+        const categories = await categories.get();
+        res.json(categories);
+    } catch (error) {
+        console.error("Error al obtener categorias:", error);
+        res.status(500).send({ message: "Eror al obtener las categorias" });
+    }
+});
+app.post("category", async (req, res) => {
+    try {
+        const category = req.body;
+        category.add(category);
+        res.status(200).send({ message: "Ok" });
+    } catch (error) {
+        console.error("Error al agregar categoria:" + error);
+        res.status(500).send({ message: "Error al agregar categoria" });
+    }
+});
+app.delete("/category/:id", async (req, res) => {
+    try {
+        const categoryId = req.params.id;
+        await deleteCategory(categoryId);
+        res.send("Categoria eliminado correctamente");
+    } catch (error) {
+        console.error("Error al eliminar el categoria:", error);
+        res.status(500).send("Error al eliminar el categoria");
     }
 });
 
