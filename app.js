@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const account = require("./services/mongo/account");
 const getRate = require("./services/requests/currencys");
+const category = require("./services/mongo/categories");
 
 const app = express();
 app.use(morgan("dev"));
@@ -67,18 +68,14 @@ app.get("/rate/:base_currency", async (req, res) => {
 
 app.get("/categories", async (req, res) => {
     try {
-        const categories = await categories.get();
-
-        if (categories) {
-            res.json(categories);
-        } else {
-            res.status(404).send("cuenta no encontrado");
-        }
+        const categories = await category.get();
+        res.json(categories);
     } catch (error) {
-        console.error("Error al obtener categorias:", error);
-        res.status(500).send({ message: "Eror al obtener las categorias" });
+        console.error("Error al obtener las categorías:", error);
+        res.status(500).send("Error al obtener las categorías");
     }
 });
+
 app.post("category", async (req, res) => {
     try {
         const category = req.body;

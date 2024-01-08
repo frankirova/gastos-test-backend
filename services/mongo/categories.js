@@ -1,6 +1,6 @@
 const { MongoClient } = require("mongodb");
 
-export const category = {
+const category = {
     add: async (category) => {
         try {
             const uri =
@@ -67,3 +67,4 @@ export const category = {
         }
     },
 };
+module.exports = category;
