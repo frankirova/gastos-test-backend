@@ -1,9 +1,10 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
-const account = require("./services/mongo/account");
 const getRate = require("./services/requests/currencys");
+const account = require("./services/mongo/account");
 const category = require("./services/mongo/categories");
+const movements = require("./services/mongo/movements");
 
 const app = express();
 app.use(morgan("dev"));
@@ -94,6 +95,17 @@ app.delete("/category/:id", async (req, res) => {
     } catch (error) {
         console.error("Error al eliminar el categoria:", error);
         res.status(500).send("Error al eliminar el categoria");
+    }
+});
+
+// movements
+
+app.get("/movements", async (req, res) => {
+    try {
+        const movement_list = await movements.get();
+        res.json(movement_list);
+    } catch (error) {
+        res.status(500).send(error);
     }
 });
 

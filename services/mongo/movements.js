@@ -1,6 +1,6 @@
 const { MongoClient } = require("mongodb");
 
-export const movements = {
+const movements = {
     add: async (movement) => {
         try {
             const uri =
@@ -78,7 +78,7 @@ export const movements = {
         try {
             const uri =
                 "mongodb+srv://franki:TEVuNkEx7Qev9KDp@cluster0.sdqqh1u.mongodb.net/";
-            const client = new MongoClient(uri, { useUnifiedTopology: true });
+            const client = new MongoClient(uri);
 
             await client.connect();
 
@@ -86,9 +86,7 @@ export const movements = {
             const movementsCollection = db.collection("movements");
 
             // Query the collection for movements
-            const movements = await movementsCollection
-                .find({ account: accountId })
-                .toArray();
+            const movements = await movementsCollection.find().toArray();
 
             // Close the connection when done
             await client.close();
@@ -125,3 +123,4 @@ export const movements = {
         }
     },
 };
+module.exports = movements;
