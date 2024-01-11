@@ -87,6 +87,7 @@ app.post("category", async (req, res) => {
         res.status(500).send({ message: "Error al agregar categoria" });
     }
 });
+
 app.delete("/category/:id", async (req, res) => {
     try {
         const categoryId = req.params.id;
