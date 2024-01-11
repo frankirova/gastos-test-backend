@@ -109,6 +109,17 @@ app.get("/movements", async (req, res) => {
     }
 });
 
+app.post("/movements", async (req, res) => {
+    try {
+        const movement = req.body;
+        await movement.add(movement);
+        res.send({ message: "Ok" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: error });
+    }
+});
+
 app.listen("3000", () => {
     console.log("runing on port 3000");
 });
