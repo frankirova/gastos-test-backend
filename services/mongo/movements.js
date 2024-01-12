@@ -12,27 +12,6 @@ const movements = {
             const movementsCollection = db.collection("movements");
 
             const result = await movementsCollection.insertOne(movement);
-            // Actualizar balance en la colección de cuentas
-            const accountsCollection = db.collection("cuentas");
-            const { account, group, amount } = movement;
-
-            // Obtener la cuenta actual
-            const account_ = await accountsCollection.findOne({
-                _id: account,
-            });
-
-            // Actualizar el balance según el tipo de movimiento
-            if (group === "income") {
-                account_.balance += amount;
-            } else if (group === "expense") {
-                account_.balance -= amount;
-            }
-
-            // Actualizar la cuenta en la base de datos
-            await accountsCollection.updateOne(
-                { _id: id_account },
-                { $set: { balance: account.balance } }
-            );
 
             client.close();
 
