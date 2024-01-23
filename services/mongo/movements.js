@@ -13,26 +13,26 @@ const movements = {
 
             const result = await movementsCollection.insertOne(movement);
 
-            // // Obtener el monto del movimiento
-            // const amount = movement.amount;
+            // Obtener el monto del movimiento
+            const amount = movement.amount;
 
-            // // Obtener la cuenta asociada al movimiento
-            // const accountId = movement.accountId;
+            // Obtener la cuenta asociada al movimiento
+            const accountId = movement.accountId;
 
-            // // Obtener el saldo actual de la cuenta
-            // const account = await accountsCollection.findOne({
-            //     _id: ObjectId(accountId),
-            // });
-            // const currentBalance = account.balance;
+            // Obtener el saldo actual de la cuenta
+            const account = await accountsCollection.findOne({
+                _id: ObjectId(accountId),
+            });
+            const currentBalance = account.balance;
 
-            // // Calcular el nuevo saldo
-            // const newBalance = currentBalance + amount;
+            // Calcular el nuevo saldo
+            const newBalance = currentBalance + amount;
 
-            // // Actualizar el saldo en la colección de cuentas
-            // await accountsCollection.updateOne(
-            //     { _id: ObjectId(accountId) },
-            //     { $set: { balance: newBalance } }
-            // );
+            // Actualizar el saldo en la colección de cuentas
+            await accountsCollection.updateOne(
+                { _id: ObjectId(accountId) },
+                { $set: { balance: newBalance } }
+            );
 
             client.close();
 
