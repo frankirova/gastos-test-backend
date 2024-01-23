@@ -124,6 +124,7 @@ app.get("/movements", async (req, res) => {
 app.post("/movements", async (req, res) => {
     try {
         const movement = req.body;
+        console.log(movement)
         await movements.add(movement);
         res.send({ message: "Ok" });
     } catch (error) {
