@@ -7,7 +7,6 @@ const category = require("./services/mongo/categories");
 const movements = require("./services/mongo/movements");
 const getTotals = require("./services/mongo/totals");
 
-
 const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
@@ -67,6 +66,16 @@ app.get("/rate/:base_currency", async (req, res) => {
     }
 });
 
+app.put("/account", async (req, res) => {
+    try {
+        const updated_account = req.body;
+        await account.edit(updated_account);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: error });
+    }
+});
+
 //categories
 
 app.get("/categories", async (req, res) => {
@@ -123,17 +132,17 @@ app.post("/movements", async (req, res) => {
     }
 });
 
-app.get("/totals/:id", async (req, res) => {
+app.get("/totals", async (req, res) => {
     try {
-        const account_id = req.params.id;
-        const totals = await getTotals(account_id);
+        // const account_id = req.params.id;
+        const totals = await getTotals();
         if (totals) {
             res.json(totals);
         } else {
-            res.status(404).send('Total no encontrado')
+            res.status(404).send("Total no encontrado");
         }
     } catch (error) {
-        console.error('Error al obtener total: ', error)
+        console.error("Error al obtener total: ", error);
     }
 });
 
