@@ -66,7 +66,7 @@ app.get("/rate/:base_currency", async (req, res) => {
     }
 });
 
-app.put("/account:id", async (req, res) => {
+app.put("/account/:id", async (req, res) => {
     try {
         const updated_account = req.body;
         const account_id = req.params.id
