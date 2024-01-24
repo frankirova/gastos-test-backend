@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 
 const movements = {
     add: async (movement) => {
@@ -14,25 +14,42 @@ const movements = {
             const result = await movementsCollection.insertOne(movement);
 
             // Obtener el monto del movimiento
-            const amount = movement.amount;
-
+            const amount = parseInt(movement.amount);
             // Obtener la cuenta asociada al movimiento
-            const accountId = movement.accountId;
+            const accountId = movement.account;
+            const group = movement.group;
+            console.log({
+                amount: movement.amount,
+                accountId: movement.account,
+            });
+            const accountsCollection = db.collection("accounts");
 
             // Obtener el saldo actual de la cuenta
             const account = await accountsCollection.findOne({
-                _id: ObjectId(accountId),
+                _id: new ObjectId(accountId),
             });
             const currentBalance = account.balance;
 
             // Calcular el nuevo saldo
-            const newBalance = currentBalance + amount;
+            if (group === "exprense") {
+                const newBalance = parseInt(currentBalance) - parseInt(amount);
+                // Actualizar el saldo en la colección de cuentas
+                await accountsCollection.updateOne(
+                    { _id: new ObjectId(accountId) },
+                    { $set: { balance: newBalance } }
+                );
 
-            // Actualizar el saldo en la colección de cuentas
-            await accountsCollection.updateOne(
-                { _id: ObjectId(accountId) },
-                { $set: { balance: newBalance } }
-            );
+                // return newBalance;
+            } else {
+                const newBalance = parseInt(currentBalance) + parseInt(amount);
+                // Actualizar el saldo en la colección de cuentas
+                await accountsCollection.updateOne(
+                    { _id: new ObjectId(accountId) },
+                    { $set: { balance: newBalance } }
+                );
+
+                // return newBalance;
+            }
 
             client.close();
 
