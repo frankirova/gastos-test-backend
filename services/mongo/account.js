@@ -47,7 +47,7 @@ const account = {
             throw new Error("Error al eliminar la cuenta de MongoDB");
         }
     },
-    edit: async (id, updatedAccount) => {
+    update: async (id, updatedAccount) => {
         try {
             const uri =
                 "mongodb+srv://franki:TEVuNkEx7Qev9KDp@cluster0.sdqqh1u.mongodb.net/";

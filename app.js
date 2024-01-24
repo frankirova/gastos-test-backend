@@ -66,10 +66,12 @@ app.get("/rate/:base_currency", async (req, res) => {
     }
 });
 
-app.put("/account", async (req, res) => {
+app.put("/account:id", async (req, res) => {
     try {
         const updated_account = req.body;
-        await account.edit(updated_account);
+        const account_id = req.params.id
+        console.log(updated_account)
+        await account.update(account_id, updated_account);
     } catch (error) {
         console.error(error);
         res.status(500).send({ error: error });
