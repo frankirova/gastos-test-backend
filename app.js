@@ -69,9 +69,10 @@ app.get("/rate/:base_currency", async (req, res) => {
 app.put("/account/:id", async (req, res) => {
     try {
         const updated_account = req.body;
-        const account_id = req.params.id
-        console.log(updated_account)
+        const account_id = req.params.id;
+        console.log({ account_date: updated_account, id_account: account_id });
         await account.update(account_id, updated_account);
+        res.send("Cuenta actualizada correctamente");
     } catch (error) {
         console.error(error);
         res.status(500).send({ error: error });
@@ -126,7 +127,7 @@ app.get("/movements", async (req, res) => {
 app.post("/movements", async (req, res) => {
     try {
         const movement = req.body;
-        console.log(movement)
+        console.log(movement);
         await movements.add(movement);
         res.send({ message: "Ok" });
     } catch (error) {

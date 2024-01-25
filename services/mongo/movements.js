@@ -31,7 +31,7 @@ const movements = {
             const currentBalance = account.balance;
 
             // Calcular el nuevo saldo
-            if (group === "exprense") {
+            if (group === "expense") {
                 const newBalance = parseInt(currentBalance) - parseInt(amount);
                 // Actualizar el saldo en la colección de cuentas
                 await accountsCollection.updateOne(

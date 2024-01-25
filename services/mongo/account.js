@@ -47,11 +47,40 @@ const account = {
             throw new Error("Error al eliminar la cuenta de MongoDB");
         }
     },
+    // update: async (id, updatedAccount) => {
+    //     try {
+    //         const uri =
+    //             "mongodb+srv://franki:TEVuNkEx7Qev9KDp@cluster0.sdqqh1u.mongodb.net/";
+    //         const client = new MongoClient(uri);
+    //         await client.connect();
+
+    //         const db = client.db("MisGastos");
+    //         const accountsCollection = db.collection("accounts");
+
+    //         const result = await accountsCollection.updateOne(
+    //             { _id: new ObjectId(id) },
+    //             { $set: updatedAccount }
+    //         );
+
+    //         client.close();
+
+    //         if (result.modifiedCount === 1) {
+    //             return "Cuenta actualizado en MongoDB", updatedAccount;
+    //         } else {
+    //             throw new Error("No se pudo actualizar la cuenta");
+    //         }
+    //     } catch (error) {
+    //         console.error("Error al editar la cuenta en MongoDB:", error);
+    //         throw new Error("Error al editar la cuenta en MongoDB", error);
+    //     }
+    // },
     update: async (id, updatedAccount) => {
         try {
             const uri =
                 "mongodb+srv://franki:TEVuNkEx7Qev9KDp@cluster0.sdqqh1u.mongodb.net/";
             const client = new MongoClient(uri);
+
+            // Manejar errores de conexión
             await client.connect();
 
             const db = client.db("MisGastos");
@@ -64,16 +93,13 @@ const account = {
 
             client.close();
 
-            if (result.modifiedCount === 1) {
-                console.log("Cuenta actualizado en MongoDB");
-            } else {
-                throw new Error("No se pudo actualizar la cuenta");
-            }
+            return result;
         } catch (error) {
             console.error("Error al editar la cuenta en MongoDB:", error);
             throw new Error("Error al editar la cuenta en MongoDB");
         }
     },
+
     get: async () => {
         try {
             const uri =
