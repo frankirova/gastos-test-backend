@@ -70,7 +70,8 @@ app.get("/rate/:base_currency", async (req, res) => {
 app.get("/dolar", async (req, res) => {
     try {
         const url = "https://dolarhoy.com";
-        const dolar_price = scrapeWebsite(url);
+        const dolar_price = await scrapeWebsite(url);
+        console.log(dolar_price)
         res.json(dolar_price);
     } catch (error) {
         console.error(error);

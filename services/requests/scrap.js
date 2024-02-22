@@ -14,14 +14,14 @@ async function scrapeWebsite(url) {
         // Utiliza xpath para evaluar la expresión XPath y obtener el elemento
         const element = xpath.select(xpathExpression, xmlDoc)[0];
 
+        const elementValue = element.textContent.trim();
+        console.log("Elemento encontrado:", elementValue);
+        return elementValue;
         // Imprime el elemento encontrado
-        if (element) {
-            const elementValue = element.textContent.trim();
-            console.log("Elemento encontrado:", elementValue);
-            return {price_usd :elementValue};
-        } else {
-            console.log("Elemento no encontrado.");
-        }
+        // if (element) {
+        // } else {
+        //     console.log("Elemento no encontrado.");
+        // }
     } catch (error) {
         console.error("Error fetching or parsing data:", error);
     }
