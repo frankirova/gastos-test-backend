@@ -6,6 +6,7 @@ const account = require("./services/mongo/account");
 const category = require("./services/mongo/categories");
 const movements = require("./services/mongo/movements");
 const getTotals = require("./services/mongo/totals");
+const scrapeWebsite = require("./services/requests/scrap");
 
 const app = express();
 app.use(morgan("dev"));
