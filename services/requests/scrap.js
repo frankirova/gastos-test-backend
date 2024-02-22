@@ -18,7 +18,7 @@ async function scrapeWebsite(url) {
         if (element) {
             const elementValue = element.textContent.trim();
             console.log("Elemento encontrado:", elementValue);
-            return elementValue;
+            return {price_usd :elementValue};
         } else {
             console.log("Elemento no encontrado.");
         }
