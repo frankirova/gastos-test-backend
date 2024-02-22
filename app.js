@@ -71,7 +71,7 @@ app.get("/dolar", async (req, res) => {
     try {
         const url = "https://dolarhoy.com";
         const dolar_price = scrapeWebsite(url);
-        return dolar_price;
+        res.json({ price: dolar_price });
     } catch (error) {
         console.error(error);
         return error;
