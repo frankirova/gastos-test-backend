@@ -66,6 +66,17 @@ app.get("/rate/:base_currency", async (req, res) => {
     }
 });
 
+app.get("/dolar", async (req, res) => {
+    try {
+        const url = "https://dolarhoy.com";
+        const dolar_price = scrapeWebsite(url);
+        return dolar_price;
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+});
+
 app.put("/account/:id", async (req, res) => {
     try {
         const updated_account = req.body;

@@ -1,19 +1,3 @@
-// const currencyapi = import("@everapi/currencyapi-js");
-// require("dotenv").config();
-
-// async function getRate() {
-//     const client = new currencyapi(process.env.CURRENCY_API_KEY);
-//     client
-//         .latest({
-//             base_currency: "ARS",
-//             currencies: "EUR",
-//         })
-//         .then((response) => {
-//             console.log(response);
-//         });
-// }
-// module.exports = getRate;
-
 require("dotenv").config();
 
 async function getRate(base_currency) {
@@ -37,5 +21,6 @@ async function getRate(base_currency) {
         console.error("Error al obtener la tasa:", error.message);
     }
 }
-
 module.exports = getRate;
+
+
